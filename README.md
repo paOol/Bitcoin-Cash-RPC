@@ -4,7 +4,7 @@
 ## Bitcoin Unlimited / Bitcoin ABC / Bitcoin Classic Node.
 
 
-![header](https://cloud.githubusercontent.com/assets/.png)
+![header](https://user-images.githubusercontent.com/5941389/30766133-0cb8e34e-9fa8-11e7-8c8b-3b7867ad42ba.jpg)
 
 This is a promise-based library and `async/await` compatible.
 
