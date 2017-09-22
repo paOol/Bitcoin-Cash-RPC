@@ -1,17 +1,18 @@
 # Bitcoin Cash JSON-RPC library
 
-## Javascript Library to communicate with your Bitcoin Unlimited / Bitcoin ABC / Bitcoin Classic Node.
+## Javascript Library to communicate with your 
+## Bitcoin Unlimited / Bitcoin ABC / Bitcoin Classic Node.
 
 
 ![header](https://cloud.githubusercontent.com/assets/.png)
 
-This is a promise-based library and async/await compatible.
+This is a promise-based library and `async/await` compatible.
 
 ## Installation
 
 grab from NPM
 ```
-    npm i bitcoin-cash-rpc
+  npm i bitcoin-cash-rpc
 ```
 
 ## Usage
@@ -25,6 +26,7 @@ let bcc = new BCC(host, username, password, port, 3000);
 
 ```
  let info = await bcc.getInfo();
+ 
  //console.log(info)
  // results in
  //{
@@ -58,16 +60,18 @@ or
 ```
 
 
-
 ## Compatible Node Implementations
 
 
   You must be running a Node (Pruned mode is fine)
 
-  [Bitcoin ABC](https://www.bitcoinabc.org/)
-  [Bitcoin XT ](https://bitcoinxt.software/)
-  [Bitcoin Unlimited (Cash)](https://www.bitcoinunlimited.info/)
-  [Bitcoin Classic (Cash)](https://bitcoinclassic.com/)
+[Bitcoin ABC](https://www.bitcoinabc.org/)
+
+[Bitcoin XT ](https://bitcoinxt.software/)
+
+[Bitcoin Unlimited (Cash)](https://www.bitcoinunlimited.info/)
+
+[Bitcoin Classic (Cash)](https://bitcoinclassic.com/)
 
 
 
