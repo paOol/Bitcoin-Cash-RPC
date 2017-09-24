@@ -21,7 +21,7 @@ class BitcoinCashRPC {
     };
 
     if (params) {
-      body["params"] = params;
+      body["params"] = [`${params}`];
     }
 
     return JSON.stringify(body);
@@ -29,7 +29,7 @@ class BitcoinCashRPC {
 
   async performMethod(method, params) {
     let body = await this.buildBody(method, params);
-    console.log(body);
+    console.log("method body", body);
     //"Content-Length": body.length
     let req = {
       method: "POST",
@@ -79,8 +79,8 @@ class BitcoinCashRPC {
       });
   }
 
-  async getNewAddress(params) {
-    let req = await this.performMethod("getnewaddress", params);
+  async getNewAddress(...params) {
+    let req = await this.performMethod("getnewaddress", ...params);
 
     return axios(req)
       .then(response => {
@@ -89,6 +89,39 @@ class BitcoinCashRPC {
       .catch(err => {
         console.log("failed in getNewAddress", err);
       });
+  }
+  async setTxFee(...params) {
+    let req = await this.performMethod("settxfee", ...params);
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in setTxFee", err);
+      });
+  }
+  async validateAddress(...params) {
+    if (!this.isValidAddress(...params)) {
+      console.log("failed valid check");
+      return "invalid address given";
+    }
+
+    let req = await this.performMethod("validateaddress", ...params);
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in validateAddress", err);
+      });
+  }
+
+  isValidAddress(x) {
+    let test = "[13][a-km-zA-HJ-NP-Z0-9]{26,33}";
+    let testRegEx = new RegExp(test, "i");
+    return testRegEx.test(x);
   }
 }
 
