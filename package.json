@@ -1,0 +1,44 @@
+{
+  "name": "bitcoin-cash-rpc",
+  "version": "0.0.2",
+  "description": "JSON-RPC library for use with Bitcoin Cash Nodes, promise-based and async/await support.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paOol/Bitcoin-Cash-RPC.git"
+  },
+  "keywords": [
+    "bitcoin",
+    "cash",
+    "async",
+    "await",
+    "es6",
+    "library",
+    "js",
+    "javascript",
+    "jsonrpc",
+    "json-rpc",
+    "bitcoin",
+    "node",
+    "bitcoin",
+    "abc",
+    "bitcoin",
+    "unlimited",
+    "bitcoin",
+    "classic",
+    "bitcoin",
+    "xt"
+  ],
+  "author": "paul",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paOol/Bitcoin-Cash-RPC/issues"
+  },
+  "homepage": "https://github.com/paOol/Bitcoin-Cash-RPC#readme",
+  "devDependencies": {
+    "axios": "^0.16.2"
+  }
+}
