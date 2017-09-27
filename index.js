@@ -28,7 +28,7 @@ class BitcoinCashRPC {
   }
 
   async performMethod(method, params) {
-    let body = await this.buildBody(method, params);
+    let body = await this.buildBody(method.toLowerCase(), params);
     console.log("method body", body);
     //"Content-Length": body.length
     let req = {
@@ -46,7 +46,7 @@ class BitcoinCashRPC {
   }
 
   async getInfo() {
-    let req = await this.performMethod("getinfo");
+    let req = await this.performMethod("getInfo");
 
     return axios(req)
       .then(response => {
@@ -56,8 +56,9 @@ class BitcoinCashRPC {
         console.log("failed in getInfo", err);
       });
   }
+
   async getWalletInfo() {
-    let req = await this.performMethod("getwalletinfo");
+    let req = await this.performMethod("getWalletInfo");
 
     return axios(req)
       .then(response => {
@@ -67,8 +68,9 @@ class BitcoinCashRPC {
         console.log("failed in getWalletInfo", err);
       });
   }
+
   async getUnconfirmedBalance() {
-    let req = await this.performMethod("getunconfirmedbalance");
+    let req = await this.performMethod("getUnconfirmedBalance");
 
     return axios(req)
       .then(response => {
@@ -79,8 +81,20 @@ class BitcoinCashRPC {
       });
   }
 
+  async getBalance() {
+    let req = await this.performMethod("getBalance");
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in getBalance", err);
+      });
+  }
+
   async getNewAddress(...params) {
-    let req = await this.performMethod("getnewaddress", ...params);
+    let req = await this.performMethod("getNewAddress", ...params);
 
     return axios(req)
       .then(response => {
@@ -91,7 +105,7 @@ class BitcoinCashRPC {
       });
   }
   async setTxFee(...params) {
-    let req = await this.performMethod("settxfee", ...params);
+    let req = await this.performMethod("setTxFee", ...params);
 
     return axios(req)
       .then(response => {
@@ -107,7 +121,7 @@ class BitcoinCashRPC {
       return "invalid address given";
     }
 
-    let req = await this.performMethod("validateaddress", ...params);
+    let req = await this.performMethod("validateAddress", ...params);
 
     return axios(req)
       .then(response => {
