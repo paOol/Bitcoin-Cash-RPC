@@ -11,7 +11,7 @@ class BitcoinCashRPC {
     //this.instance = axios.create({})
   }
 
-  async buildBody(method, params) {
+  async buildBody(method, ...params) {
     var time = Date.now();
 
     let body = {
@@ -20,15 +20,20 @@ class BitcoinCashRPC {
       method: method
     };
 
-    if (params) {
-      body["params"] = [`${params}`];
+    if (params.length) {
+      body.params = params;
     }
 
     return JSON.stringify(body);
   }
 
-  async performMethod(method, params) {
-    let body = await this.buildBody(method.toLowerCase(), params);
+  async performMethod(method, ...params) {
+    if (params.length) {
+      var body = await this.buildBody(method.toLowerCase(), ...params);
+    } else {
+      var body = await this.buildBody(method.toLowerCase());
+    }
+
     console.log("method body", body);
     //"Content-Length": body.length
     let req = {
@@ -53,7 +58,7 @@ class BitcoinCashRPC {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getInfo", err);
+        console.log("failed in getInfo", err.response.data);
       });
   }
 
@@ -65,7 +70,7 @@ class BitcoinCashRPC {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getWalletInfo", err);
+        console.log("failed in getWalletInfo", err.response.data);
       });
   }
 
@@ -77,7 +82,7 @@ class BitcoinCashRPC {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getUnconfirmedBalance", err);
+        console.log("failed in getUnconfirmedBalance", err.response.data);
       });
   }
 
@@ -86,10 +91,11 @@ class BitcoinCashRPC {
 
     return axios(req)
       .then(response => {
+        console.log(response.data);
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getBalance", err);
+        console.log("failed in getBalance", err.response.data);
       });
   }
 
@@ -101,7 +107,7 @@ class BitcoinCashRPC {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getNewAddress", err);
+        console.log("failed in getNewAddress", err.response.data);
       });
   }
   async setTxFee(...params) {
@@ -112,7 +118,7 @@ class BitcoinCashRPC {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in setTxFee", err);
+        console.log("failed in setTxFee", err.response.data);
       });
   }
   async validateAddress(...params) {
@@ -128,7 +134,30 @@ class BitcoinCashRPC {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in validateAddress", err);
+        console.log("failed in validateAddress", err.response.data);
+      });
+  }
+  async sendToAddress(...params) {
+    // address - string
+    // amount - numeric
+    // comment - string (optional)
+
+    if (!this.isValidAddress(...params)) {
+      console.log("failed valid check");
+      return "invalid address given";
+    }
+
+    let req = await this.performMethod("sendToAddress", ...params);
+    console.log(req);
+
+    return axios(req)
+      .then(response => {
+        console.log("in axios", response.data.result);
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in sendToAddress", err);
+        return err.message;
       });
   }
 
