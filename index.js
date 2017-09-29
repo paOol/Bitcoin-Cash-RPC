@@ -11,6 +11,11 @@ class BitcoinCashRPC {
     //this.instance = axios.create({})
   }
 
+  /**
+   * @param  {String} Method  name of the method being called
+   * @param  {Array}  params  various number of arguments based on method
+   * @return {String} body    the plaintext body to POST
+   */
   async buildBody(method, ...params) {
     var time = Date.now();
 
@@ -27,6 +32,11 @@ class BitcoinCashRPC {
     return JSON.stringify(body);
   }
 
+  /**
+   * @param  {String} Method  name of the method
+   * @param  {...[type]} params   varies based on the method
+   * @return {String} Header  plaintext request object to POST to the node
+   */
   async performMethod(method, ...params) {
     if (params.length) {
       var body = await this.buildBody(method.toLowerCase(), ...params);
@@ -50,6 +60,9 @@ class BitcoinCashRPC {
     return req;
   }
 
+  /**
+   * @return {Object} array   version, walletversion, balance, block height, difficulty, tx fee
+   */
   async getInfo() {
     let req = await this.performMethod("getInfo");
 
@@ -62,6 +75,9 @@ class BitcoinCashRPC {
       });
   }
 
+  /**
+   * @return {Object} array   wallet version, balance, unconfirmed balance, txcount, and what the tx fee was set at
+   */
   async getWalletInfo() {
     let req = await this.performMethod("getWalletInfo");
 
@@ -74,6 +90,9 @@ class BitcoinCashRPC {
       });
   }
 
+  /**
+   * @return {String} balance   In satoshis
+   */
   async getUnconfirmedBalance() {
     let req = await this.performMethod("getUnconfirmedBalance");
 
@@ -86,6 +105,9 @@ class BitcoinCashRPC {
       });
   }
 
+  /**
+   * @return {String} balance  in satoshis
+   */
   async getBalance() {
     let req = await this.performMethod("getBalance");
 
@@ -99,6 +121,10 @@ class BitcoinCashRPC {
       });
   }
 
+  /**
+ * @param  {String}  account  name of account for new address
+ * @return {String}  address
+ */
   async getNewAddress(...params) {
     let req = await this.performMethod("getNewAddress", ...params);
 
@@ -110,6 +136,11 @@ class BitcoinCashRPC {
         console.log("failed in getNewAddress", err.response.data);
       });
   }
+
+  /**
+   * @param {Number} TxFee transaction fee
+   * @return {Boolean} whether it was successful
+   */
   async setTxFee(...params) {
     let req = await this.performMethod("setTxFee", ...params);
 
@@ -121,6 +152,11 @@ class BitcoinCashRPC {
         console.log("failed in setTxFee", err.response.data);
       });
   }
+
+  /**
+   * @param  {String} Address   bitcoin address to be checked
+   * @return {Boolean}          whether address is valid
+   */
   async validateAddress(...params) {
     if (!this.isValidAddress(...params)) {
       console.log("failed valid check");
@@ -137,18 +173,19 @@ class BitcoinCashRPC {
         console.log("failed in validateAddress", err.response.data);
       });
   }
-  async sendToAddress(...params) {
-    // address - string
-    // amount - numeric
-    // comment - string (optional)
 
+  /**
+   * @param  {String} Address   bitcoin address to send to
+   * @param {Number} Amount     number of bitcoin to send
+   * @return {String} Tx        returns the transaction ID
+   */
+  async sendToAddress(...params) {
     if (!this.isValidAddress(...params)) {
       console.log("failed valid check");
       return "invalid address given";
     }
 
     let req = await this.performMethod("sendToAddress", ...params);
-    console.log(req);
 
     return axios(req)
       .then(response => {
