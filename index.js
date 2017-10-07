@@ -1,3 +1,4 @@
+let translate = require("npm-address-translator");
 let axios = require("axios");
 
 class BitcoinCashRPC {
@@ -74,6 +75,20 @@ class BitcoinCashRPC {
         console.log("failed in getInfo", err.response.data);
       });
   }
+  /**
+   * @return {string} height   latest confirmed block number
+   */
+  async getBlockCount() {
+    let req = await this.performMethod("getBlockCount");
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in getBlockCount", err.response.data);
+      });
+  }
 
   /**
    * @return {Object} array   wallet version, balance, unconfirmed balance, txcount, and what the tx fee was set at
@@ -113,11 +128,41 @@ class BitcoinCashRPC {
 
     return axios(req)
       .then(response => {
-        console.log(response.data);
         return response.data.result;
       })
       .catch(err => {
         console.log("failed in getBalance", err.response.data);
+      });
+  }
+
+  /**
+   * @return {String} balance  in satoshis
+   */
+  async getWalletInfo() {
+    let req = await this.performMethod("getWalletInfo");
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in getWalletInfo", err.response.data);
+      });
+  }
+
+  /**
+ * @param  {Number}  blocknumber  block number you want the hash of
+ * @return {String}  blockhash
+ */
+  async getBlockHash(...params) {
+    let req = await this.performMethod("getBlockHash", ...params);
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in getBlockHash", err.response.data);
       });
   }
 
@@ -189,7 +234,6 @@ class BitcoinCashRPC {
 
     return axios(req)
       .then(response => {
-        console.log("in axios", response.data.result);
         return response.data.result;
       })
       .catch(err => {
@@ -198,10 +242,84 @@ class BitcoinCashRPC {
       });
   }
 
+  /**
+   * @param  {String} accountName name of account you want the address for
+   * @return {String} address       returns the address
+   */
+  async getAccountAddress(...params) {
+    let req = await this.performMethod("getAccountAddress", ...params);
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in getAccountAddress", err);
+        return err.message;
+      });
+  }
+  /**
+   * @param  {String} blockhash
+   * @return {obj} data       returns the block info
+   */
+  async getBlock(...params) {
+    if (!this.isValidAddress(...params)) {
+      console.log("failed valid check");
+      return "invalid address given";
+    }
+
+    let req = await this.performMethod("getBlock", ...params);
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in getBlock", err);
+        return err.message;
+      });
+  }
+
+  /**
+   * @param  {String} transaction_id
+   * @param {Number} vout     use 1
+   * @return {obj} data       returns the tx info
+   */
+  async getTxOut(...params) {
+    if (!this.isValidAddress(...params)) {
+      console.log("failed valid check");
+      return "invalid address given";
+    }
+
+    let req = await this.performMethod("getTxOut", ...params);
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in getTxOut", err);
+        return err.message;
+      });
+  }
+
   isValidAddress(x) {
-    let test = "[13][a-km-zA-HJ-NP-Z0-9]{26,33}";
+    let test = "[13CH][a-km-zA-HJ-NP-Z0-9]{33}$";
     let testRegEx = new RegExp(test, "i");
     return testRegEx.test(x);
+  }
+
+  translateAddress(address) {
+    let test = "[13CH][a-km-zA-HJ-NP-Z0-9]{33}$";
+    let testRegEx = new RegExp(test, "i");
+    if (testRegEx.test(address)) {
+      let translated = translate.translateAddress(address);
+      if (translated.origCoin == "BTC") {
+        return translated.origAddress;
+      } else {
+        return translated.resultAddress;
+      }
+    }
   }
 }
 
