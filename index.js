@@ -304,13 +304,13 @@ class BitcoinCashRPC {
   }
 
   isValidAddress(x) {
-    let test = "[13CH][a-km-zA-HJ-NP-Z0-9]{33}$";
+    let test = "[13CH][a-km-zA-HJ-NP-Z0-9]{30,33}";
     let testRegEx = new RegExp(test, "i");
     return testRegEx.test(x);
   }
 
   translateAddress(address) {
-    let test = "[13CH][a-km-zA-HJ-NP-Z0-9]{33}$";
+    let test = "[13CH][a-km-zA-HJ-NP-Z0-9]{30,33}";
     let testRegEx = new RegExp(test, "i");
     if (testRegEx.test(address)) {
       let translated = translate.translateAddress(address);

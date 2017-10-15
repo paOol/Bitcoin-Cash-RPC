@@ -1,12 +1,13 @@
 # Bitcoin Cash JSON-RPC library
 
-## Javascript Library to communicate with your 
-## Bitcoin Unlimited / Bitcoin ABC / Bitcoin Classic Node.
+## Javascript Library to communicate with your Bitcoin Unlimited / Bitcoin ABC / Bitcoin Classic Node.
 
 
 ![header](https://user-images.githubusercontent.com/5941389/30766133-0cb8e34e-9fa8-11e7-8c8b-3b7867ad42ba.jpg)
 
 This is a promise-based library and `async/await` compatible.
+Includes a couple additional helpers, such as a QRcode generator as well as Bitpay's Address translator.
+Supports both address formats.
 
 ## Installation
 
@@ -26,8 +27,9 @@ let bcc = new BCC(host, username, password, port, 3000);
 
 ```
  let info = await bcc.getInfo();
- 
- //console.log(info)
+
+ console.log(info)
+
  // results in
  //{
  //  "version": 1010101,
@@ -59,6 +61,25 @@ or
  })
 ```
 
+## Available Methods
+
+there is incomplete coverage at the moment. Please submit a PR if you'd like to have a method added.
+
+
+`getInfo`
+`getBlockCount`
+`getWalletInfo`
+`getUnconfirmedBalance`
+`getBalance`
+`getWalletInfo`
+`getBlockHash`
+`getNewAddress`
+`setTxFee`
+`validateAddress`
+`sendToAddress`
+`getAccountAddress`
+`getBlock`
+`getTxOut`
 
 ## Compatible Node Implementations
 
