@@ -123,21 +123,6 @@ class BitcoinCashRPC {
   /**
    * @return {String} balance  in satoshis
    */
-  async getBalance() {
-    let req = await this.performMethod("getBalance");
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        console.log("failed in getBalance", err.response.data);
-      });
-  }
-
-  /**
-   * @return {String} balance  in satoshis
-   */
   async getWalletInfo() {
     let req = await this.performMethod("getWalletInfo");
 
@@ -179,6 +164,22 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log("failed in getNewAddress", err.response.data);
+      });
+  }
+
+  /**
+   * @param {String}  account name of the account
+   * @return {String} balance  in satoshis
+   */
+  async getBalance(...params) {
+    let req = await this.performMethod("getBalance", ...params);
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in getBalance", err.response.data);
       });
   }
 
@@ -238,6 +239,30 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log("failed in sendToAddress", err);
+        return err.message;
+      });
+  }
+
+  /**
+   * @param  {String} account   bitcoind account to send from
+   * @param  {String} address   bitcoin address to send to
+   * @param {Number} Amount     number of bitcoin to send
+   * @return {String} Tx        returns the transaction ID
+   */
+  async sendFrom(...params) {
+    if (!this.isValidAddress(...params)) {
+      console.log("failed valid check");
+      return "invalid address given";
+    }
+
+    let req = await this.performMethod("sendFrom", ...params);
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in sendFrom", err);
         return err.message;
       });
   }
@@ -303,7 +328,7 @@ class BitcoinCashRPC {
       });
   }
 
-  isValidAddress(x) {
+  isValidAddress(...x) {
     let test = "[13CH][a-km-zA-HJ-NP-Z0-9]{30,33}";
     let testRegEx = new RegExp(test, "i");
     return testRegEx.test(x);

@@ -19,7 +19,7 @@ grab from NPM
 ## Usage
 
 ```
-let BCC = require("./BitcoinCashRPC");
+let BCC = require("bitcoin-cash-rpc");
 let bcc = new BCC(host, username, password, port, 3000);
 
 ```
@@ -77,6 +77,7 @@ there is incomplete coverage at the moment. Please submit a PR if you'd like to 
 `setTxFee`
 `validateAddress`
 `sendToAddress`
+`sendFrom`
 `getAccountAddress`
 `getBlock`
 `getTxOut`
