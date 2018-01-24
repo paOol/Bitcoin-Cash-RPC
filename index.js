@@ -45,7 +45,7 @@ class BitcoinCashRPC {
       var body = await this.buildBody(method.toLowerCase());
     }
 
-    console.log("method body", body);
+   //  console.log("method body", body);
     //"Content-Length": body.length
     let req = {
       method: "POST",
@@ -61,6 +61,16 @@ class BitcoinCashRPC {
     return req;
   }
 
+  async estimateSmartFee(...params) {
+    let req = await this.performMethod("estimateSmartFee", ...params);
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in estimateSmartFee", err.response.data);
+      });
+  }
   /**
    * @return {Object} array   version, walletversion, balance, block height, difficulty, tx fee
    */
