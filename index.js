@@ -44,9 +44,6 @@ class BitcoinCashRPC {
     } else {
       var body = await this.buildBody(method.toLowerCase());
     }
-
-    console.log("method body", body);
-    //"Content-Length": body.length
     let req = {
       method: "POST",
       url: `http://${this.host}:${this.port}/`,
@@ -57,10 +54,35 @@ class BitcoinCashRPC {
       timeout: `${this.timeout}`,
       data: `${body}`
     };
-
     return req;
   }
+  /**
+   * @return estimated transaction fee with parameter for number of blocks
+   */
+  async estimateSmartFee(...params) {
+    let req = await this.performMethod("estimateSmartFee", ...params);
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in estimateSmartFee", err.response.data);
+      });
+  }
+  /**
+   * @return {Object} array of all transactions incoming/outgoing
+   */
+  async listTransactions() {
+    let req = await this.performMethod("listTransactions");
 
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in getInfo", err.response.data);
+      });
+  }
   /**
    * @return {Object} array   version, walletversion, balance, block height, difficulty, tx fee
    */
