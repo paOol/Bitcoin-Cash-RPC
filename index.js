@@ -188,7 +188,21 @@ class BitcoinCashRPC {
         console.log("failed in getNewAddress", err.response.data);
       });
   }
+  /**
+   * @param {String} transaction id
+   * @return {String} transaction details
+   */
+  async getTransaction(...params) {
+    let req = await this.performMethod("getTransaction", ...params);
 
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in getTransaction", err.response.data);
+      });
+  }
   /**
    * @param {String}  account name of the account
    * @return {String} balance  in satoshis
