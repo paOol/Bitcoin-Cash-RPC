@@ -262,10 +262,11 @@ class BitcoinCashRPC {
    * @return {String} Tx        returns the transaction ID
    */
   async sendToAddress(...params) {
-    if (!this.isValidAddress(...params)) {
-      console.log("failed valid check");
-      return "invalid address given";
-    }
+// temporary solution
+//     if (!this.isValidAddress(...params)) {
+//       console.log("failed valid check");
+//       return "invalid address given";
+//     }
 
     let req = await this.performMethod("sendToAddress", ...params);
 
