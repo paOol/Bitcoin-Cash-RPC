@@ -44,9 +44,6 @@ class BitcoinCashRPC {
     } else {
       var body = await this.buildBody(method.toLowerCase());
     }
-
-    console.log("method body", body);
-    //"Content-Length": body.length
     let req = {
       method: "POST",
       url: `http://${this.host}:${this.port}/`,
@@ -57,10 +54,35 @@ class BitcoinCashRPC {
       timeout: `${this.timeout}`,
       data: `${body}`
     };
-
     return req;
   }
+  /**
+   * @return estimated transaction fee with parameter for number of blocks
+   */
+  async estimateSmartFee(...params) {
+    let req = await this.performMethod("estimateSmartFee", ...params);
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in estimateSmartFee", err.response.data);
+      });
+  }
+  /**
+   * @return {Object} array of all transactions incoming/outgoing
+   */
+  async listTransactions() {
+    let req = await this.performMethod("listTransactions");
 
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in getInfo", err.response.data);
+      });
+  }
   /**
    * @return {Object} array   version, walletversion, balance, block height, difficulty, tx fee
    */
@@ -166,7 +188,21 @@ class BitcoinCashRPC {
         console.log("failed in getNewAddress", err.response.data);
       });
   }
+  /**
+   * @param {String} transaction id
+   * @return {String} transaction details
+   */
+  async getTransaction(...params) {
+    let req = await this.performMethod("getTransaction", ...params);
 
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log("failed in getTransaction", err.response.data);
+      });
+  }
   /**
    * @param {String}  account name of the account
    * @return {String} balance  in satoshis
@@ -226,10 +262,11 @@ class BitcoinCashRPC {
    * @return {String} Tx        returns the transaction ID
    */
   async sendToAddress(...params) {
-    if (!this.isValidAddress(...params)) {
-      console.log("failed valid check");
-      return "invalid address given";
-    }
+// temporary solution
+//     if (!this.isValidAddress(...params)) {
+//       console.log("failed valid check");
+//       return "invalid address given";
+//     }
 
     let req = await this.performMethod("sendToAddress", ...params);
 

@@ -81,6 +81,9 @@ there is incomplete coverage at the moment. Please submit a PR if you'd like to 
 `getAccountAddress`
 `getBlock`
 `getTxOut`
+`listTransactions`
+`estimateSmartFee`
+`getTransaction`
 
 ## Compatible Node Implementations
 
@@ -92,8 +95,6 @@ there is incomplete coverage at the moment. Please submit a PR if you'd like to 
 [Bitcoin XT ](https://bitcoinxt.software/)
 
 [Bitcoin Unlimited (Cash)](https://www.bitcoinunlimited.info/)
-
-[Bitcoin Classic (Cash)](https://bitcoinclassic.com/)
 
 
 
