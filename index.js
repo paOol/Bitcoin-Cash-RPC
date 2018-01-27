@@ -1,5 +1,5 @@
-let translate = require("npm-address-translator");
-let axios = require("axios");
+let translate = require('npm-address-translator');
+let axios = require('axios');
 
 class BitcoinCashRPC {
   constructor(host, username, password, port, timeout) {
@@ -21,7 +21,7 @@ class BitcoinCashRPC {
     var time = Date.now();
 
     let body = {
-      jsonrpc: "1.0",
+      jsonrpc: '1.0',
       id: time,
       method: method
     };
@@ -45,11 +45,11 @@ class BitcoinCashRPC {
       var body = await this.buildBody(method.toLowerCase());
     }
     let req = {
-      method: "POST",
+      method: 'POST',
       url: `http://${this.host}:${this.port}/`,
       auth: { username: `${this.username}`, password: `${this.password}` },
       headers: {
-        "Content-Type": "text/plain"
+        'Content-Type': 'text/plain'
       },
       timeout: `${this.timeout}`,
       data: `${body}`
@@ -60,55 +60,55 @@ class BitcoinCashRPC {
    * @return estimated transaction fee with parameter for number of blocks
    */
   async estimateSmartFee(...params) {
-    let req = await this.performMethod("estimateSmartFee", ...params);
+    let req = await this.performMethod('estimateSmartFee', ...params);
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in estimateSmartFee", err.response.data);
+        console.log('failed in estimateSmartFee', err.response.data);
       });
   }
   /**
    * @return {Object} array of all transactions incoming/outgoing
    */
   async listTransactions() {
-    let req = await this.performMethod("listTransactions");
+    let req = await this.performMethod('listTransactions');
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getInfo", err.response.data);
+        console.log('failed in getInfo', err.response.data);
       });
   }
   /**
    * @return {Object} array   version, walletversion, balance, block height, difficulty, tx fee
    */
   async getInfo() {
-    let req = await this.performMethod("getInfo");
+    let req = await this.performMethod('getInfo');
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getInfo", err.response.data);
+        console.log('failed in getInfo', err.response.data);
       });
   }
   /**
    * @return {string} height   latest confirmed block number
    */
   async getBlockCount() {
-    let req = await this.performMethod("getBlockCount");
+    let req = await this.performMethod('getBlockCount');
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getBlockCount", err.response.data);
+        console.log('failed in getBlockCount', err.response.data);
       });
   }
 
@@ -116,14 +116,14 @@ class BitcoinCashRPC {
    * @return {Object} array   wallet version, balance, unconfirmed balance, txcount, and what the tx fee was set at
    */
   async getWalletInfo() {
-    let req = await this.performMethod("getWalletInfo");
+    let req = await this.performMethod('getWalletInfo');
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getWalletInfo", err.response.data);
+        console.log('failed in getWalletInfo', err.response.data);
       });
   }
 
@@ -131,14 +131,14 @@ class BitcoinCashRPC {
    * @return {String} balance   In satoshis
    */
   async getUnconfirmedBalance() {
-    let req = await this.performMethod("getUnconfirmedBalance");
+    let req = await this.performMethod('getUnconfirmedBalance');
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getUnconfirmedBalance", err.response.data);
+        console.log('failed in getUnconfirmedBalance', err.response.data);
       });
   }
 
@@ -146,46 +146,46 @@ class BitcoinCashRPC {
    * @return {String} balance  in satoshis
    */
   async getWalletInfo() {
-    let req = await this.performMethod("getWalletInfo");
+    let req = await this.performMethod('getWalletInfo');
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getWalletInfo", err.response.data);
+        console.log('failed in getWalletInfo', err.response.data);
       });
   }
 
   /**
- * @param  {Number}  blocknumber  block number you want the hash of
- * @return {String}  blockhash
- */
+   * @param  {Number}  blocknumber  block number you want the hash of
+   * @return {String}  blockhash
+   */
   async getBlockHash(...params) {
-    let req = await this.performMethod("getBlockHash", ...params);
+    let req = await this.performMethod('getBlockHash', ...params);
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getBlockHash", err.response.data);
+        console.log('failed in getBlockHash', err.response.data);
       });
   }
 
   /**
- * @param  {String}  account  name of account for new address
- * @return {String}  address
- */
+   * @param  {String}  account  name of account for new address
+   * @return {String}  address
+   */
   async getNewAddress(...params) {
-    let req = await this.performMethod("getNewAddress", ...params);
+    let req = await this.performMethod('getNewAddress', ...params);
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getNewAddress", err.response.data);
+        console.log('failed in getNewAddress', err.response.data);
       });
   }
   /**
@@ -193,14 +193,14 @@ class BitcoinCashRPC {
    * @return {String} transaction details
    */
   async getTransaction(...params) {
-    let req = await this.performMethod("getTransaction", ...params);
+    let req = await this.performMethod('getTransaction', ...params);
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getTransaction", err.response.data);
+        console.log('failed in getTransaction', err.response.data);
       });
   }
   /**
@@ -208,14 +208,14 @@ class BitcoinCashRPC {
    * @return {String} balance  in satoshis
    */
   async getBalance(...params) {
-    let req = await this.performMethod("getBalance", ...params);
+    let req = await this.performMethod('getBalance', ...params);
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getBalance", err.response.data);
+        console.log('failed in getBalance', err.response.data);
       });
   }
 
@@ -224,14 +224,14 @@ class BitcoinCashRPC {
    * @return {Boolean} whether it was successful
    */
   async setTxFee(...params) {
-    let req = await this.performMethod("setTxFee", ...params);
+    let req = await this.performMethod('setTxFee', ...params);
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in setTxFee", err.response.data);
+        console.log('failed in setTxFee', err.response.data);
       });
   }
 
@@ -241,18 +241,18 @@ class BitcoinCashRPC {
    */
   async validateAddress(...params) {
     if (!this.isValidAddress(...params)) {
-      console.log("failed valid check");
-      return "invalid address given";
+      console.log('failed valid check');
+      return 'invalid address given';
     }
 
-    let req = await this.performMethod("validateAddress", ...params);
+    let req = await this.performMethod('validateAddress', ...params);
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in validateAddress", err.response.data);
+        console.log('failed in validateAddress', err.response.data);
       });
   }
 
@@ -262,20 +262,19 @@ class BitcoinCashRPC {
    * @return {String} Tx        returns the transaction ID
    */
   async sendToAddress(...params) {
-// temporary solution
-//     if (!this.isValidAddress(...params)) {
-//       console.log("failed valid check");
-//       return "invalid address given";
-//     }
+    if (!this.isValidAddress(...params)) {
+      console.log('failed valid check');
+      return 'invalid address given';
+    }
 
-    let req = await this.performMethod("sendToAddress", ...params);
+    let req = await this.performMethod('sendToAddress', ...params);
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in sendToAddress", err);
+        console.log('failed in sendToAddress', err);
         return err.message;
       });
   }
@@ -287,19 +286,19 @@ class BitcoinCashRPC {
    * @return {String} Tx        returns the transaction ID
    */
   async sendFrom(...params) {
-    if (!this.isValidAddress(...params)) {
-      console.log("failed valid check");
-      return "invalid address given";
+    if (!this.isValidAddress(params[1])) {
+      console.log('failed valid check');
+      return 'invalid address given';
     }
 
-    let req = await this.performMethod("sendFrom", ...params);
+    let req = await this.performMethod('sendFrom', ...params);
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in sendFrom", err);
+        console.log('failed in sendFrom', err);
         return err.message;
       });
   }
@@ -309,14 +308,14 @@ class BitcoinCashRPC {
    * @return {String} address       returns the address
    */
   async getAccountAddress(...params) {
-    let req = await this.performMethod("getAccountAddress", ...params);
+    let req = await this.performMethod('getAccountAddress', ...params);
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getAccountAddress", err);
+        console.log('failed in getAccountAddress', err);
         return err.message;
       });
   }
@@ -326,18 +325,18 @@ class BitcoinCashRPC {
    */
   async getBlock(...params) {
     if (!this.isValidAddress(...params)) {
-      console.log("failed valid check");
-      return "invalid address given";
+      console.log('failed valid check');
+      return 'invalid address given';
     }
 
-    let req = await this.performMethod("getBlock", ...params);
+    let req = await this.performMethod('getBlock', ...params);
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getBlock", err);
+        console.log('failed in getBlock', err);
         return err.message;
       });
   }
@@ -349,34 +348,40 @@ class BitcoinCashRPC {
    */
   async getTxOut(...params) {
     if (!this.isValidAddress(...params)) {
-      console.log("failed valid check");
-      return "invalid address given";
+      console.log('failed valid check');
+      return 'invalid address given';
     }
 
-    let req = await this.performMethod("getTxOut", ...params);
+    let req = await this.performMethod('getTxOut', ...params);
 
     return axios(req)
       .then(response => {
         return response.data.result;
       })
       .catch(err => {
-        console.log("failed in getTxOut", err);
+        console.log('failed in getTxOut', err);
         return err.message;
       });
   }
 
   isValidAddress(...x) {
-    let test = "[13CH][a-km-zA-HJ-NP-Z0-9]{30,33}";
-    let testRegEx = new RegExp(test, "i");
-    return testRegEx.test(x);
+    const test = '[13CH][a-km-zA-HJ-NP-Z0-9]{30,33}';
+    const cashRegEx = /^((?:bitcoincash):)?(?:[023456789acdefghjklmnpqrstuvwxyz]){42}$/gi;
+    let testRegEx = new RegExp(test, 'i');
+
+    if (testRegEx.test(x)) {
+      return testRegEx.test(x);
+    } else {
+      return cashRegEx.test(x);
+    }
   }
 
   translateAddress(address) {
-    let test = "[13CH][a-km-zA-HJ-NP-Z0-9]{30,33}";
-    let testRegEx = new RegExp(test, "i");
+    let test = '[13CH][a-km-zA-HJ-NP-Z0-9]{30,33}';
+    let testRegEx = new RegExp(test, 'i');
     if (testRegEx.test(address)) {
       let translated = translate.translateAddress(address);
-      if (translated.origCoin == "BTC") {
+      if (translated.origCoin == 'BTC') {
         return translated.origAddress;
       } else {
         return translated.resultAddress;
