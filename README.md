@@ -84,6 +84,7 @@ there is incomplete coverage at the moment. Please submit a PR if you'd like to 
 `listTransactions`
 `estimateSmartFee`
 `getTransaction`
+`getRawTransaction`
 
 ## Compatible Node Implementations
 
