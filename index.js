@@ -190,6 +190,22 @@ class BitcoinCashRPC {
   }
   /**
    * @param {String} transaction id
+   * @param {Boolean} verbose
+   * @return {String} transaction details
+   */
+  async getRawTransaction(...params) {
+    let req = await this.performMethod('getRawTransaction', ...params);
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log('failed in getRawTransaction', err.response.data);
+      });
+  }
+  /**
+   * @param {String} transaction id
    * @return {String} transaction details
    */
   async getTransaction(...params) {
