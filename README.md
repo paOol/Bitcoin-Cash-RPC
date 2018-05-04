@@ -85,6 +85,7 @@ there is incomplete coverage at the moment. Please submit a PR if you'd like to 
 `estimateSmartFee`
 `getTransaction`
 `getRawTransaction`
+`getRawMempool`
 
 ## Compatible Node Implementations
 
