@@ -340,11 +340,6 @@ class BitcoinCashRPC {
    * @return {obj} data       returns the block info
    */
   async getBlock(...params) {
-    if (!this.isValidAddress(...params)) {
-      console.log('failed valid check');
-      return 'invalid address given';
-    }
-
     let req = await this.performMethod('getBlock', ...params);
 
     return axios(req)
@@ -363,11 +358,6 @@ class BitcoinCashRPC {
    * @return {obj} data       returns the tx info
    */
   async getTxOut(...params) {
-    if (!this.isValidAddress(...params)) {
-      console.log('failed valid check');
-      return 'invalid address given';
-    }
-
     let req = await this.performMethod('getTxOut', ...params);
 
     return axios(req)
