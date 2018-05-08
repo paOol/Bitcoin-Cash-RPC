@@ -397,6 +397,7 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in sendRawTransaction', err.response.data);
+        return err.response.data;
       });
   }
 
