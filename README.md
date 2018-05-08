@@ -86,6 +86,7 @@ there is incomplete coverage at the moment. Please submit a PR if you'd like to 
 `getTransaction`
 `getRawTransaction`
 `getRawMempool`
+`sendRawTransaction`
 
 ## Compatible Node Implementations
 

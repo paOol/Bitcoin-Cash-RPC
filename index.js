@@ -384,6 +384,21 @@ class BitcoinCashRPC {
         console.log('failed in getRawMempool', err.response.data);
       });
   }
+  /**
+   * @param {String} hexstring
+   * @param {Boolean} allow high fees
+   */
+  async sendRawTransaction(...params) {
+    let req = await this.performMethod('sendRawTransaction', ...params);
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log('failed in sendRawTransaction', err.response.data);
+      });
+  }
 
   isValidAddress(...x) {
     const test = '[13CH][a-km-zA-HJ-NP-Z0-9]{30,33}';
