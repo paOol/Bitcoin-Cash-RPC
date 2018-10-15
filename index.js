@@ -56,6 +56,7 @@ class BitcoinCashRPC {
     };
     return req;
   }
+
   /**
    * @return estimated transaction fee with parameter for number of blocks
    */
@@ -69,6 +70,7 @@ class BitcoinCashRPC {
         console.log('failed in estimateSmartFee', err.response.data);
       });
   }
+
   /**
    * @return {Object} array of all transactions incoming/outgoing
    */
@@ -83,6 +85,25 @@ class BitcoinCashRPC {
         console.log('failed in getInfo', err.response.data);
       });
   }
+
+  /**
+   * @param  {String} Address  bch address
+   * @param  {String} Signature  signature
+   * @param  {String} Message  contents of message
+   * @return {Boolean} whether it is valid
+   */
+  async verifyMessage(...params) {
+    let req = await this.performMethod('verifyMessage', ...params);
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log('failed in verifyMessage', err.response.data);
+      });
+  }
+
   /**
    * @return {Object} array   version, walletversion, balance, block height, difficulty, tx fee
    */
@@ -97,6 +118,7 @@ class BitcoinCashRPC {
         console.log('failed in getInfo', err.response.data);
       });
   }
+
   /**
    * @return {string} height   latest confirmed block number
    */
