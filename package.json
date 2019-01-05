@@ -1,6 +1,6 @@
 {
   "name": "bitcoin-cash-rpc",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "JSON-RPC library for use with Bitcoin Cash Nodes, promise-based and async/await support.",
   "main": "index.js",
   "scripts": {
@@ -40,11 +40,7 @@
     "url": "https://github.com/paOol/Bitcoin-Cash-RPC/issues"
   },
   "homepage": "https://github.com/paOol/Bitcoin-Cash-RPC#readme",
-  "devDependencies": {
-    "axios": "^0.16.2"
-  },
   "dependencies": {
-    "npm-address-translator": "^1.0.4",
-    "qr-image": "^3.2.0"
+    "axios": "^0.16.2"
   }
 }

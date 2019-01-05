@@ -82,10 +82,13 @@ there is incomplete coverage at the moment. Please submit a PR if you'd like to 
 `getBlock`
 `getTxOut`
 `listTransactions`
+`listUnspent`
 `estimateSmartFee`
 `getTransaction`
 `getRawTransaction`
 `getRawMempool`
+`getRawChangeAddress`
+`signRawTransaction`
 `sendRawTransaction`
 
 ## Compatible Node Implementations

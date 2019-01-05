@@ -1,4 +1,3 @@
-let translate = require('npm-address-translator');
 let axios = require('axios');
 
 class BitcoinCashRPC {
@@ -129,22 +128,6 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in signRawTransaction', err.response.data);
-      });
-  }
-
-  /**
-   * @param {String} RawTX hex value of signed transaction
-   * @return {String} transaction ID
-   */
-  async sendRawTransaction(...params) {
-    let req = await this.performMethod('sendRawTransaction', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        console.log('failed in sendRawTransaction', err.response.data);
       });
   }
 
@@ -470,7 +453,7 @@ class BitcoinCashRPC {
   }
   /**
    * @param {String} hexstring
-   * @param {Boolean} allow high fees
+   * @return {String} transaction ID
    */
   async sendRawTransaction(...params) {
     let req = await this.performMethod('sendRawTransaction', ...params);
@@ -494,19 +477,6 @@ class BitcoinCashRPC {
       return testRegEx.test(x);
     } else {
       return cashRegEx.test(x);
-    }
-  }
-
-  translateAddress(address) {
-    let test = '[13CH][a-km-zA-HJ-NP-Z0-9]{30,33}';
-    let testRegEx = new RegExp(test, 'i');
-    if (testRegEx.test(address)) {
-      let translated = translate.translateAddress(address);
-      if (translated.origCoin == 'BTC') {
-        return translated.origAddress;
-      } else {
-        return translated.resultAddress;
-      }
     }
   }
 }
