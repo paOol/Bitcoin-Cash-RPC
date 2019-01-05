@@ -133,6 +133,22 @@ class BitcoinCashRPC {
   }
 
   /**
+   * @param {String} RawTX hex value of signed transaction
+   * @return {String} transaction ID
+   */
+  async sendRawTransaction(...params) {
+    let req = await this.performMethod('sendRawTransaction', ...params);
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log('failed in sendRawTransaction', err.response.data);
+      });
+  }
+
+  /**
    * @param  {String} Address  bch address
    * @param  {String} Signature  signature
    * @param  {String} Message  contents of message
