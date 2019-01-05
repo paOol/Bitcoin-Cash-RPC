@@ -86,10 +86,12 @@ class BitcoinCashRPC {
   }
 
   /**
+   * @param  {Number} minconf minimum number of confirmations
+   * @param  {Number} maxconf max number of confirmations
    * @return {Object} array of all UTXOs
    */
-  async listUnspent() {
-    let req = await this.performMethod('listUnspent');
+  async listUnspent(...params) {
+    let req = await this.performMethod('listUnspent', ...params);
 
     return axios(req)
       .then(response => {
