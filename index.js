@@ -72,7 +72,7 @@ class BitcoinCashRPC {
   }
 
   /**
-   * @return {Object} array of all transactions incoming/outgoing
+   * @return {Object} array of all UTXOs incoming/outgoing
    */
   async listTransactions() {
     let req = await this.performMethod('listTransactions');
@@ -87,7 +87,22 @@ class BitcoinCashRPC {
   }
 
   /**
-   * @return {Object} array of all transactions incoming/outgoing
+   * @return {Object} array of all UTXOs
+   */
+  async listUnspent() {
+    let req = await this.performMethod('listUnspent');
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log('failed in listUnspent', err.response.data);
+      });
+  }
+
+  /**
+   * @return {String} change address with bch prefix
    */
   async getRawChangeAddress() {
     let req = await this.performMethod('getRawChangeAddress');
