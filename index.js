@@ -82,7 +82,22 @@ class BitcoinCashRPC {
         return response.data.result;
       })
       .catch(err => {
-        console.log('failed in getInfo', err.response.data);
+        console.log('failed in listTransactions', err.response.data);
+      });
+  }
+
+  /**
+   * @return {Object} array of all transactions incoming/outgoing
+   */
+  async getRawChangeAddress() {
+    let req = await this.performMethod('getRawChangeAddress');
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log('failed in getRawChangeAddress', err.response.data);
       });
   }
 
