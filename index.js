@@ -12,8 +12,8 @@ class BitcoinCashRPC {
   }
 
   /**
-   * @param  {String} Method  name of the method being called
-   * @param  {Array}  params  various number of arguments based on method
+   * @param {String} Method  name of the method being called
+   * @param {Array}  params  various number of arguments based on method
    * @return {String} body    the plaintext body to POST
    */
   async buildBody(method, ...params) {
@@ -33,8 +33,8 @@ class BitcoinCashRPC {
   }
 
   /**
-   * @param  {String} Method  name of the method
-   * @param  {...[type]} params   varies based on the method
+   * @param {String} Method  name of the method
+   * @param {...[type]} params   varies based on the method
    * @return {String} Header  plaintext request object to POST to the node
    */
   async performMethod(method, ...params) {
@@ -67,6 +67,7 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in estimateSmartFee', err.response.data);
+        return err.response.data;
       });
   }
 
@@ -82,12 +83,13 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in listTransactions', err.response.data);
+        return err.response.data;
       });
   }
 
   /**
-   * @param  {Number} minconf minimum number of confirmations
-   * @param  {Number} maxconf max number of confirmations
+   * @param {Number} minconf minimum number of confirmations
+   * @param {Number} maxconf max number of confirmations
    * @return {Object} array of all UTXOs
    */
   async listUnspent(...params) {
@@ -99,6 +101,7 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in listUnspent', err.response.data);
+        return err.response.data;
       });
   }
 
@@ -114,6 +117,7 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in getRawChangeAddress', err.response.data);
+        return err.response.data;
       });
   }
 
@@ -130,13 +134,14 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in signRawTransaction', err.response.data);
+        return err.response.data;
       });
   }
 
   /**
-   * @param  {String} Address  bch address
-   * @param  {String} Signature  signature
-   * @param  {String} Message  contents of message
+   * @param {String} Address  bch address
+   * @param {String} Signature  signature
+   * @param {String} Message  contents of message
    * @return {Boolean} whether it is valid
    */
   async verifyMessage(...params) {
@@ -148,6 +153,7 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in verifyMessage', err.response.data);
+        return err.response.data;
       });
   }
 
@@ -163,6 +169,7 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in getInfo', err.response.data);
+        return err.response.data;
       });
   }
 
@@ -178,6 +185,7 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in getBlockCount', err.response.data);
+        return err.response.data;
       });
   }
 
@@ -193,6 +201,7 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in getWalletInfo', err.response.data);
+        return err.response.data;
       });
   }
 
@@ -208,6 +217,7 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in getUnconfirmedBalance', err.response.data);
+        return err.response.data;
       });
   }
 
@@ -223,11 +233,12 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in getWalletInfo', err.response.data);
+        return err.response.data;
       });
   }
 
   /**
-   * @param  {Number}  blocknumber  block number you want the hash of
+   * @param {Number}  blocknumber  block number you want the hash of
    * @return {String}  blockhash
    */
   async getBlockHash(...params) {
@@ -239,11 +250,12 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in getBlockHash', err.response.data);
+        return err.response.data;
       });
   }
 
   /**
-   * @param  {String}  account  name of account for new address
+   * @param {String}  account  name of account for new address
    * @return {String}  address
    */
   async getNewAddress(...params) {
@@ -255,6 +267,7 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in getNewAddress', err.response.data);
+        return err.response.data;
       });
   }
   /**
@@ -271,6 +284,7 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in getRawTransaction', err.response.data);
+        return err.response.data;
       });
   }
   /**
@@ -286,6 +300,7 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in getTransaction', err.response.data);
+        return err.response.data;
       });
   }
   /**
@@ -301,6 +316,7 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in getBalance', err.response.data);
+        return err.response.data;
       });
   }
 
@@ -317,11 +333,12 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in setTxFee', err.response.data);
+        return err.response.data;
       });
   }
 
   /**
-   * @param  {String} Address   bitcoin address to be checked
+   * @param {String} Address   bitcoin address to be checked
    * @return {Boolean}          whether address is valid
    */
   async validateAddress(...params) {
@@ -338,11 +355,12 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in validateAddress', err.response.data);
+        return err.response.data;
       });
   }
 
   /**
-   * @param  {String} Address   bitcoin address to send to
+   * @param {String} Address   bitcoin address to send to
    * @param {Number} Amount     number of bitcoin to send
    * @return {String} Tx        returns the transaction ID
    */
@@ -359,14 +377,14 @@ class BitcoinCashRPC {
         return response.data.result;
       })
       .catch(err => {
-        console.log('failed in sendToAddress', err);
-        return err.message;
+        console.log('failed in sendToAddress', err.response.data);
+        return err.response.data;
       });
   }
 
   /**
-   * @param  {String} account   bitcoind account to send from
-   * @param  {String} address   bitcoin address to send to
+   * @param {String} account   bitcoind account to send from
+   * @param {String} address   bitcoin address to send to
    * @param {Number} Amount     number of bitcoin to send
    * @return {String} Tx        returns the transaction ID
    */
@@ -383,13 +401,13 @@ class BitcoinCashRPC {
         return response.data.result;
       })
       .catch(err => {
-        console.log('failed in sendFrom', err);
-        return err.message;
+        console.log('failed in sendFrom', err.response.data);
+        return err.response.data;
       });
   }
 
   /**
-   * @param  {String} accountName name of account you want the address for
+   * @param {String} accountName name of account you want the address for
    * @return {String} address       returns the address
    */
   async getAccountAddress(...params) {
@@ -400,12 +418,12 @@ class BitcoinCashRPC {
         return response.data.result;
       })
       .catch(err => {
-        console.log('failed in getAccountAddress', err);
-        return err.message;
+        console.log('failed in getAccountAddress', err.response.data);
+        return err.response.data;
       });
   }
   /**
-   * @param  {String} blockhash
+   * @param {String} blockhash
    * @return {obj} data       returns the block info
    */
   async getBlock(...params) {
@@ -416,13 +434,13 @@ class BitcoinCashRPC {
         return response.data.result;
       })
       .catch(err => {
-        console.log('failed in getBlock', err);
-        return err.message;
+        console.log('failed in getBlock', err.response.data);
+        return err.response.data;
       });
   }
 
   /**
-   * @param  {String} transaction_id
+   * @param {String} transaction_id
    * @param {Number} vout     use 1
    * @return {obj} data       returns the tx info
    */
@@ -434,8 +452,25 @@ class BitcoinCashRPC {
         return response.data.result;
       })
       .catch(err => {
-        console.log('failed in getTxOut', err);
-        return err.message;
+        console.log('failed in getTxOut', err.response.data);
+        return err.response.data;
+      });
+  }
+  /**
+   * @param {String} array of txids
+   * @param {String} blockhash  looks for txid in block w/ this hash
+   * @return {obj} data       returns hex encoded data for proof
+   */
+  async getTxoutProof(...params) {
+    let req = await this.performMethod('getTxoutProof', ...params);
+
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        console.log('failed in getTxoutProof', err.response.data);
+        return err.response.data;
       });
   }
   /**
@@ -451,6 +486,7 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         console.log('failed in getRawMempool', err.response.data);
+        return err.response.data;
       });
   }
   /**
