@@ -2,16 +2,16 @@
 
 ## Javascript Library to communicate with your Bitcoin Unlimited / Bitcoin ABC / Bitcoin Classic Node.
 
-
 ![header](https://user-images.githubusercontent.com/5941389/30766133-0cb8e34e-9fa8-11e7-8c8b-3b7867ad42ba.jpg)
 
-This is a promise-based library and `async/await` compatible.
-Includes a couple additional helpers, such as a QRcode generator as well as Bitpay's Address translator.
-Supports both address formats.
+This is a promise-based library and `async/await` compatible. Includes a couple
+additional helpers, such as a QRcode generator as well as Bitpay's Address
+translator. Supports both address formats.
 
 ## Installation
 
 grab from NPM
+
 ```
   npm i bitcoin-cash-rpc
 ```
@@ -19,14 +19,17 @@ grab from NPM
 ## Usage
 
 ```
-let BCC = require("bitcoin-cash-rpc");
-let bcc = new BCC(host, username, password, port, 3000);
+let bchRPC = require("bitcoin-cash-rpc");
+let bch = new bchRPC(host, username, password, port, timeout, debugging);
+
+// timeout is 3000 by default
+// debugging is false by default and hides console log messages
+
 
 ```
 
-
 ```
- let info = await bcc.getInfo();
+ let info = await bch.getInfo();
 
  console.log(info)
 
@@ -55,7 +58,7 @@ let bcc = new BCC(host, username, password, port, 3000);
 or
 
 ```
- p = Promise.resolve(bcc.getInfo());
+ p = Promise.resolve(bch.getInfo());
  p.then(info=>{
     console.log(info);
  })
@@ -63,45 +66,24 @@ or
 
 ## Available Methods
 
-there is incomplete coverage at the moment. Please submit a PR if you'd like to have a method added.
+there is incomplete coverage at the moment. Please submit a PR if you'd like to
+have a method added.
 
-
-`getInfo`
-`getBlockCount`
-`getWalletInfo`
-`getUnconfirmedBalance`
-`getBalance`
-`getWalletInfo`
-`getBlockHash`
-`getNewAddress`
-`setTxFee`
-`validateAddress`
-`sendToAddress`
-`sendFrom`
-`getAccountAddress`
-`getBlock`
-`getTxOut`
-`listTransactions`
-`listUnspent`
-`estimateSmartFee`
-`getTransaction`
-`getRawTransaction`
-`getRawMempool`
-`getRawChangeAddress`
-`signRawTransaction`
-`sendRawTransaction`
+`getInfo` `getBlockCount` `getWalletInfo` `getUnconfirmedBalance` `getBalance`
+`getWalletInfo` `getBlockHash` `getNewAddress` `setTxFee` `validateAddress`
+`sendToAddress` `sendFrom` `getAccountAddress` `getBlock` `getTxOut`
+`listTransactions` `listUnspent` `estimateSmartFee` `getTransaction`
+`getRawTransaction` `getRawMempool` `getRawChangeAddress` `signRawTransaction`
+`sendRawTransaction` `decodeRawTransaction` `getTxoutProof`
 
 ## Compatible Node Implementations
 
-
-  You must be running a Node (Pruned mode is fine)
+You must be running a Node (Pruned mode is fine)
 
 [Bitcoin ABC](https://www.bitcoinabc.org/)
 
 [Bitcoin XT ](https://bitcoinxt.software/)
 
 [Bitcoin Unlimited (Cash)](https://www.bitcoinunlimited.info/)
-
-
 
 ### Tested on Node v7.10, and npm v5.4.1
