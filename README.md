@@ -23,7 +23,7 @@ let bchRPC = require("bitcoin-cash-rpc");
 let bch = new bchRPC(host, username, password, port, timeout, debugging);
 
 // timeout is 3000 by default
-// debugging is false by default and hides console log messages
+// debugging is true by default, false makes the library silent and requires try/catch on the app level.
 
 
 ```

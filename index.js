@@ -1,7 +1,14 @@
 let axios = require('axios');
 
 class BitcoinCashRPC {
-  constructor(host, username, password, port, timeout = 3000, debugging = false) {
+  constructor(
+    host,
+    username,
+    password,
+    port,
+    timeout = 3000,
+    debugging = true
+  ) {
     this.host = host;
     this.username = username;
     this.password = password;
@@ -67,9 +74,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in estimateSmartFee', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in estimateSmartFee');
         }
-        return err.response.data;
       });
   }
 
@@ -85,9 +92,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in listTransactions', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in listTransactions');
         }
-        return err.response.data;
       });
   }
 
@@ -105,9 +112,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in listUnspent', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in listUnspent');
         }
-        return err.response.data;
       });
   }
 
@@ -123,9 +130,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getRawChangeAddress', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getRawChangeAddress');
         }
-        return err.response.data;
       });
   }
 
@@ -142,9 +149,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in signRawTransaction', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in signRawTransaction');
         }
-        return err.response.data;
       });
   }
 
@@ -163,9 +170,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in verifyMessage', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in verifyMessage');
         }
-        return err.response.data;
       });
   }
 
@@ -181,9 +188,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getInfo', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getInfo');
         }
-        return err.response.data;
       });
   }
 
@@ -199,9 +206,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getBlockCount', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getBlockCount');
         }
-        return err.response.data;
       });
   }
 
@@ -217,9 +224,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getWalletInfo', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getWalletInfo');
         }
-        return err.response.data;
       });
   }
 
@@ -235,9 +242,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getUnconfirmedBalance', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getUnconfirmedBalance');
         }
-        return err.response.data;
       });
   }
 
@@ -253,9 +260,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getWalletInfo', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getWalletInfo');
         }
-        return err.response.data;
       });
   }
 
@@ -272,9 +279,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getBlockHash', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getBlockHash');
         }
-        return err.response.data;
       });
   }
 
@@ -291,9 +298,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getNewAddress', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getNewAddress');
         }
-        return err.response.data;
       });
   }
   /**
@@ -310,9 +317,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getRawTransaction', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getRawTransaction');
         }
-        return err.response.data;
       });
   }
   /**
@@ -328,9 +335,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getTransaction', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getTransaction');
         }
-        return err.response.data;
       });
   }
   /**
@@ -346,9 +353,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getBalance', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getBalance');
         }
-        return err.response.data;
       });
   }
 
@@ -365,9 +372,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in setTxFee', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in setTxFee');
         }
-        return err.response.data;
       });
   }
 
@@ -377,7 +384,7 @@ class BitcoinCashRPC {
    */
   async validateAddress(...params) {
     if (!this.isValidAddress(...params)) {
-      console.log('failed valid check');
+      throw new Error('failed valid check');
       return 'invalid address given';
     }
 
@@ -389,9 +396,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in validateAddress', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in validateAddress');
         }
-        return err.response.data;
       });
   }
 
@@ -402,7 +409,7 @@ class BitcoinCashRPC {
    */
   async sendToAddress(...params) {
     if (!this.isValidAddress(...params)) {
-      console.log('failed valid check');
+      throw new Error('failed valid check');
       return 'invalid address given';
     }
 
@@ -414,9 +421,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in sendToAddress', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in sendToAddress');
         }
-        return err.response.data;
       });
   }
 
@@ -428,7 +435,7 @@ class BitcoinCashRPC {
    */
   async sendFrom(...params) {
     if (!this.isValidAddress(params[1])) {
-      console.log('failed valid check');
+      throw new Error('failed valid check');
       return 'invalid address given';
     }
 
@@ -440,9 +447,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in sendFrom', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in sendFrom');
         }
-        return err.response.data;
       });
   }
 
@@ -459,9 +466,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getAccountAddress', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getAccountAddress');
         }
-        return err.response.data;
       });
   }
   /**
@@ -477,9 +484,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getBlock', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getBlock');
         }
-        return err.response.data;
       });
   }
 
@@ -496,9 +503,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in decodeRawTransaction', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in decodeRawTransaction');
         }
-        return err.response.data;
       });
   }
   /**
@@ -515,9 +522,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getTxOut', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getTxOut');
         }
-        return err.response.data;
       });
   }
   /**
@@ -534,9 +541,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getTxoutProof', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getTxoutProof');
         }
-        return err.response.data;
       });
   }
   /**
@@ -552,9 +559,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in getRawMempool', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in getRawMempool');
         }
-        return err.response.data;
       });
   }
   /**
@@ -570,9 +577,9 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log('failed in sendRawTransaction', err.response.data);
+          console.log(err.response.data);
+          throw new Error('failed in sendRawTransaction');
         }
-        return err.response.data;
       });
   }
 
