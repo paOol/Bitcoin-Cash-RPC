@@ -408,10 +408,10 @@ class BitcoinCashRPC {
    * @return {String} Tx        returns the transaction ID
    */
   async sendToAddress(...params) {
-    if (!this.isValidAddress(...params)) {
-      throw new Error('failed valid check');
-      return 'invalid address given';
-    }
+    // if (!this.isValidAddress(...params)) {
+    //   throw new Error('failed valid check');
+    //   return 'invalid address given';
+    // }
 
     let req = await this.performMethod('sendToAddress', ...params);
 
@@ -434,10 +434,10 @@ class BitcoinCashRPC {
    * @return {String} Tx        returns the transaction ID
    */
   async sendFrom(...params) {
-    if (!this.isValidAddress(params[1])) {
-      throw new Error('failed valid check');
-      return 'invalid address given';
-    }
+    // if (!this.isValidAddress(params[1])) {
+    //   throw new Error('failed valid check');
+    //   return 'invalid address given';
+    // }
 
     let req = await this.performMethod('sendFrom', ...params);
 
