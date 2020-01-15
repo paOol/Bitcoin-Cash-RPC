@@ -92,7 +92,7 @@ class BitcoinCashRPC {
       })
       .catch(err => {
         if (this.debugging) {
-          console.log(err.response.data);
+          console.log(err);
           throw new Error('failed in estimateFee');
         }
       });
