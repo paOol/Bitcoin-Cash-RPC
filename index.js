@@ -198,7 +198,7 @@ class BitcoinCashRPC {
    * @return {Object} array   version, walletversion, balance, block height, difficulty, tx fee
    */
   async getInfo() {
-    let req = await this.performMethod('getInfo');
+    let req = await this.performMethod('getBlockChainInfo');
 
     return axios(req)
       .then(response => {
@@ -207,7 +207,7 @@ class BitcoinCashRPC {
       .catch(err => {
         if (this.debugging) {
           console.log(err);
-          throw new Error('failed in getInfo');
+          throw new Error('failed in getBlockChainInfo');
         }
       });
   }
