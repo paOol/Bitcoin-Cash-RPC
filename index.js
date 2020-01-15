@@ -81,6 +81,24 @@ class BitcoinCashRPC {
   }
 
   /**
+   * @param {Number} number of blocks needed to begin confirmation
+   * @return estimated transaction fee per kilobyte
+   */
+  async estimateFee(...params) {
+    let req = await this.performMethod('estimateFee', ...params);
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        if (this.debugging) {
+          console.log(err.response.data);
+          throw new Error('failed in estimateFee');
+        }
+      });
+  }
+
+  /**
    * @return {Object} array of all UTXOs incoming/outgoing
    */
   async listTransactions() {
