@@ -57,7 +57,7 @@ class BitcoinCashRPC {
       headers: {
         'Content-Type': 'text/plain'
       },
-      timeout: `${this.timeout}`,
+      timeout: this.timeout,
       data: `${body}`
     };
     return req;

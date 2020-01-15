@@ -1,6 +1,6 @@
 {
   "name": "bitcoin-cash-rpc",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "JSON-RPC library for use with Bitcoin Cash Nodes, promise-based and async/await support.",
   "main": "index.js",
   "scripts": {
