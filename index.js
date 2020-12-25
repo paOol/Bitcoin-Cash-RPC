@@ -58,9 +58,38 @@ class BitcoinCashRPC {
         'Content-Type': 'text/plain'
       },
       timeout: this.timeout,
-      data: `${body}`
+      data: `${body}`,
+      rpcMethod: method
     };
     return req;
+  }
+
+  /**
+   * @param {String} req  plaintext request object to POST to the node
+   * @return {String} res  response information from the node
+   */
+  async postRequest(req) {
+    return axios(req)
+      .then(response => {
+        return response.data.result;
+      })
+      .catch(err => {
+        if (err.response) {
+          if (this.debugging) {
+            console.log(err.response.data)
+          }
+          if (err.response.data.error) {
+            throw new Error('failed in ' + req.rpcMethod + ' code=' + err.response.data.error.code +  ' message=' + err.response.data.error.message);
+          } else {
+            throw new Error('failed in ' + req.rpcMethod + ': ' + JSON.stringify(err.response.data));
+          }
+        } else {
+          if (this.debugging) {
+            console.log(err);
+          }
+          throw new Error('failed in ' + req.rpcMethod + ': ' + err);
+        }
+      });
   }
 
   /**
@@ -68,16 +97,7 @@ class BitcoinCashRPC {
    */
   async estimateSmartFee(...params) {
     let req = await this.performMethod('estimateSmartFee', ...params);
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in estimateSmartFee');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -86,16 +106,7 @@ class BitcoinCashRPC {
    */
   async estimateFee(...params) {
     let req = await this.performMethod('estimateFee', ...params);
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in estimateFee');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -103,17 +114,7 @@ class BitcoinCashRPC {
    */
   async listTransactions() {
     let req = await this.performMethod('listTransactions');
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in listTransactions');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -123,17 +124,7 @@ class BitcoinCashRPC {
    */
   async listUnspent(...params) {
     let req = await this.performMethod('listUnspent', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in listUnspent');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -141,17 +132,7 @@ class BitcoinCashRPC {
    */
   async getRawChangeAddress() {
     let req = await this.performMethod('getRawChangeAddress');
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in getRawChangeAddress');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -160,17 +141,7 @@ class BitcoinCashRPC {
    */
   async signRawTransaction(...params) {
     let req = await this.performMethod('signRawTransaction', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in signRawTransaction');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -181,17 +152,7 @@ class BitcoinCashRPC {
    */
   async verifyMessage(...params) {
     let req = await this.performMethod('verifyMessage', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in verifyMessage');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -199,17 +160,7 @@ class BitcoinCashRPC {
    */
   async getInfo() {
     let req = await this.performMethod('getBlockChainInfo');
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in getBlockChainInfo');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -217,17 +168,7 @@ class BitcoinCashRPC {
    */
   async getBlockCount() {
     let req = await this.performMethod('getBlockCount');
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in getBlockCount');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -235,17 +176,7 @@ class BitcoinCashRPC {
    */
   async getWalletInfo() {
     let req = await this.performMethod('getWalletInfo');
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in getWalletInfo');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -253,17 +184,7 @@ class BitcoinCashRPC {
    */
   async getUnconfirmedBalance() {
     let req = await this.performMethod('getUnconfirmedBalance');
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in getUnconfirmedBalance');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -272,17 +193,7 @@ class BitcoinCashRPC {
    */
   async getBlockHash(...params) {
     let req = await this.performMethod('getBlockHash', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in getBlockHash');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -291,17 +202,7 @@ class BitcoinCashRPC {
    */
   async getNewAddress(...params) {
     let req = await this.performMethod('getNewAddress', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in getNewAddress');
-        }
-      });
+    return this.postRequest(req)
   }
   /**
    * @param {String} transaction id
@@ -310,17 +211,7 @@ class BitcoinCashRPC {
    */
   async getRawTransaction(...params) {
     let req = await this.performMethod('getRawTransaction', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in getRawTransaction');
-        }
-      });
+    return this.postRequest(req)
   }
   /**
    * @param {String} transaction id
@@ -328,17 +219,7 @@ class BitcoinCashRPC {
    */
   async getTransaction(...params) {
     let req = await this.performMethod('getTransaction', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in getTransaction');
-        }
-      });
+    return this.postRequest(req)
   }
   /**
    * @param {String}  account name of the account
@@ -346,17 +227,7 @@ class BitcoinCashRPC {
    */
   async getBalance(...params) {
     let req = await this.performMethod('getBalance', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in getBalance');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -365,17 +236,7 @@ class BitcoinCashRPC {
    */
   async setTxFee(...params) {
     let req = await this.performMethod('setTxFee', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in setTxFee');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -389,17 +250,7 @@ class BitcoinCashRPC {
     }
 
     let req = await this.performMethod('validateAddress', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in validateAddress');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -414,17 +265,7 @@ class BitcoinCashRPC {
     // }
 
     let req = await this.performMethod('sendToAddress', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in sendToAddress');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -440,17 +281,7 @@ class BitcoinCashRPC {
     // }
 
     let req = await this.performMethod('sendFrom', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in sendFrom');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -459,17 +290,7 @@ class BitcoinCashRPC {
    */
   async getAccountAddress(...params) {
     let req = await this.performMethod('getAccountAddress', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in getAccountAddress');
-        }
-      });
+    return this.postRequest(req)
   }
   /**
    * @param {String} blockhash
@@ -477,17 +298,7 @@ class BitcoinCashRPC {
    */
   async getBlock(...params) {
     let req = await this.performMethod('getBlock', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in getBlock');
-        }
-      });
+    return this.postRequest(req)
   }
 
   /**
@@ -496,17 +307,7 @@ class BitcoinCashRPC {
    */
   async decodeRawTransaction(...params) {
     let req = await this.performMethod('decodeRawTransaction', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in decodeRawTransaction');
-        }
-      });
+    return this.postRequest(req)
   }
   /**
    * @param {String} transaction_id
@@ -515,17 +316,7 @@ class BitcoinCashRPC {
    */
   async getTxOut(...params) {
     let req = await this.performMethod('getTxOut', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in getTxOut');
-        }
-      });
+    return this.postRequest(req)
   }
   /**
    * @param {String} array of txids
@@ -534,17 +325,7 @@ class BitcoinCashRPC {
    */
   async getTxoutProof(...params) {
     let req = await this.performMethod('getTxoutProof', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in getTxoutProof');
-        }
-      });
+    return this.postRequest(req)
   }
   /**
    * @param {Boolean} verbose
@@ -552,17 +333,7 @@ class BitcoinCashRPC {
    */
   async getRawMempool(...params) {
     let req = await this.performMethod('getRawMempool', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in getRawMempool');
-        }
-      });
+    return this.postRequest(req)
   }
   /**
    * @param {String} hexstring
@@ -570,17 +341,7 @@ class BitcoinCashRPC {
    */
   async sendRawTransaction(...params) {
     let req = await this.performMethod('sendRawTransaction', ...params);
-
-    return axios(req)
-      .then(response => {
-        return response.data.result;
-      })
-      .catch(err => {
-        if (this.debugging) {
-          console.log(err);
-          throw new Error('failed in sendRawTransaction');
-        }
-      });
+    return this.postRequest(req)
   }
 
   isValidAddress(...x) {
